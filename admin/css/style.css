@@ -1,0 +1,61 @@
+body {
+    font: 16px Inter, Arial;
+    color: #000000;
+}
+
+.navbar-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: #ffffff !important;
+}
+.brand-gold {
+  color: #5CB3FF;
+  font-weight: 400;
+}
+.navbar-nav .nav-link {
+  font-family: 'Montserrat', sans-serif;
+  color: #cccccc !important;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav {
+  color: #5CB3FF !important;
+}
+
+.login {
+    width: 400px;
+    margin: 100px auto;
+}
+
+.parsley-errors-list {
+    li {
+        list-style: none;
+        color: #F00;
+        margin: 5px 0px 5px -30px;
+    }
+}
+
+.bg-dark {
+    padding: 20px;
+    background-color: #000000 !important;
+    color: #FFF;
+}
+
+.navbar {
+    .navbar-nav {
+        .nav-link {
+            color: #FFF !important;
+        }
+    }
+}
+
+label {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+}
