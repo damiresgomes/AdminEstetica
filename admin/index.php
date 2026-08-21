@@ -29,6 +29,7 @@ require "functions.php";
 
     <link rel="stylesheet" href="css/sweetalert2.min.css">
     <link rel="stylesheet" href="css/style.css?v=1">
+    <link rel="stylesheet" href="../src/css/style.css?v=1">
 
     <link rel="icon" href="../imgs/imagens/icone.png">
 

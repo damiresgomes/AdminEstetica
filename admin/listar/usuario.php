@@ -7,7 +7,7 @@ if (!isset($page))
     <div class="card shadow">
         <div class="card-header">
             <div class="float-start">
-                <h2>Listagem de Usuários</h2>
+                <h2>Listagem de <span>Usuários</span></h2>
             </div>
 
             <div class="float-end">
@@ -28,7 +28,6 @@ if (!isset($page))
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>CPF</th>
-                        <th>Salário</th>
                         <th>Data de Nascimento</th>
                         <th>Status</th>
                         <th>Opções</th>
@@ -36,7 +35,7 @@ if (!isset($page))
                 </thead>
                 <tbody>
                     <?php
-                    $sqlListar = "SELECT id, nome, email, cpf, salario, datanascimento, ativo
+                    $sqlListar = "SELECT id, nome, email, cpf, datanascimento, ativo
                                 FROM usuario
                                 ORDER BY nome";
 
@@ -45,9 +44,7 @@ if (!isset($page))
 
                     $dadosListar = $consultaListar->fetchAll(PDO::FETCH_OBJ);
 
-                    foreach ($dadosListar as $dados) {
-                        $salarioFormatado = number_format($dados->salario, 2, ',', '.');
-
+                    foreach ($dadosListar as $dados) 
                         // Formatação da data (YYYY-MM-DD -> DD/MM/YYYY)
                         $dataNasc = '-';
                         if (!empty($dados->datanascimento)) {
@@ -63,7 +60,6 @@ if (!isset($page))
                             <td><?= htmlspecialchars($dados->nome) ?></td>
                             <td><?= htmlspecialchars($dados->email) ?></td>
                             <td><?= htmlspecialchars($dados->cpf) ?></td>
-                            <td>R$ <?= $salarioFormatado ?></td>
                             <td><?= $dataNasc ?></td>
                             <td><?= $statusBadge ?></td>
 
@@ -74,7 +70,6 @@ if (!isset($page))
                             </td>
                         </tr>
                         <?php
-                    }
                     ?>
                 </tbody>
             </table>

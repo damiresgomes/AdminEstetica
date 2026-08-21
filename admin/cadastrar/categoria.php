@@ -22,7 +22,7 @@ $nome_categoria = $dadosCadastro->nome_categoria ?? NULL;
     <div class="card shadow">
         <div class="card-header">
             <div class="float-start">
-                <h2>Cadastro de Categoria</h2>
+                <h2>Cadastro de <br><span>Categoria</span></h2>
             </div>
 
             <div class="float-end">

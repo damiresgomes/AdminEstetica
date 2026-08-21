@@ -31,7 +31,7 @@ if (!empty($salario)) {
     <div class="card shadow">
         <div class="card-header">
             <div class="float-start">
-                <h2>Cadastro de Usuário</h2>
+                <h2>Cadastro de <br><span>Usuário</span></h2>
             </div>
 
             <div class="float-end">
@@ -90,7 +90,7 @@ if (!empty($salario)) {
                         <label for="datanascimento">Data de Nascimento:</label>
                         <input type="text" name="datanascimento" id="datanascimento" class="form-control" required
                             data-parsley-required-message="Preencha este campo"
-                            placeholder="Digite sua Data de Nascimento:" value="<?= $data ?>">
+                            placeholder="Data de Nascimento:" value="<?= $data ?>">
                     </div>
 
                     <div class="col-12 col-md-3">

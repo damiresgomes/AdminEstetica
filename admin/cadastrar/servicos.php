@@ -24,7 +24,7 @@ $duracao_horas = $dados->duracao_horas ?? NULL;
     <div class="card shadow">
         <div class="card-header">
             <div class="float-start">
-                <h2>Cadastro de Serviços</h2>
+                <h2>Cadastro de <br><span>Serviços</span></h2>
             </div>
 
             <div class="float-end">
