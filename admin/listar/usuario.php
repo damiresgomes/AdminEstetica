@@ -44,8 +44,7 @@ if (!isset($page))
 
                     $dadosListar = $consultaListar->fetchAll(PDO::FETCH_OBJ);
 
-                    foreach ($dadosListar as $dados) 
-                        // Formatação da data (YYYY-MM-DD -> DD/MM/YYYY)
+                    foreach ($dadosListar as $dados) {
                         $dataNasc = '-';
                         if (!empty($dados->datanascimento)) {
                             $dataNasc = date('d/m/Y', strtotime($dados->datanascimento));
@@ -70,6 +69,7 @@ if (!isset($page))
                             </td>
                         </tr>
                         <?php
+                    }
                     ?>
                 </tbody>
             </table>

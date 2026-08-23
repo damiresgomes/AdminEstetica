@@ -37,10 +37,6 @@ if (!isset($page))
             <div class="card-label">Usuários</div>
             <div id="card-total-usuarios" class="card-value">Carregando...</div>
         </div>
-        <div class="card card-orange">
-            <div class="card-label">Contato</div>
-            <div id="card-total-contatos" class="card-value">Carregando...</div>
-        </div>
     </div>
 
     <div class="tabela-container">

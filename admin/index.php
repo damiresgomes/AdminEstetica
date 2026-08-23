@@ -189,5 +189,4 @@ require "functions.php";
     }
 ?>
 </body>
-
 </html>

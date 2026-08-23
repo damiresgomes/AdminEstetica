@@ -50,9 +50,6 @@ function atualizarCards(dados: DadosDashboard): void {
 
     const elUsuarios = document.getElementById('card-total-usuarios');
     if (elUsuarios) elUsuarios.innerText = dados.totalUsuarios.toString();
-
-    const elContatos = document.getElementById('card-total-contatos');
-    if (elContatos) elContatos.innerText = dados.totalContatos.toString();
 }
 
 function exibirTabelaAgendamentos(agendamentos: Agendamento[]): void {

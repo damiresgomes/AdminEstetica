@@ -30,14 +30,12 @@ try {
     $totalClientes = $pdo->query("SELECT COUNT(*) FROM clientes")->fetchColumn();
     $totalServicos = $pdo->query("SELECT COUNT(*) FROM servicos")->fetchColumn();
     $totalUsuarios = $pdo->query("SELECT COUNT(*) FROM usuario WHERE ativo = 'Sim'")->fetchColumn();
-    $totalContatos = $pdo->query("SELECT COUNT(*) FROM contatos")->fetchColumn();
 
     $resposta = [
         'agendamentos'  => $agendamentos,
         'totalClientes' => (int)$totalClientes,
         'totalServicos' => (int)$totalServicos,
-        'totalUsuarios' => (int)$totalUsuarios,
-        'totalContatos' => (int)$totalContatos
+        'totalUsuarios' => (int)$totalUsuarios
     ];
 
     http_response_code(200);
