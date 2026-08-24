@@ -1,7 +1,9 @@
 <?php if (!isset($page)) exit; ?>
 <?php
 
-$sqlCadastro = "SELECT id_categoria, nome_categoria FROM categoria ORDER BY nome_categoria";
+$sqlCadastro = "SELECT id_categoria, nome_categoria
+                FROM categoria
+                ORDER BY nome_categoria";
 $consultaCadastro = $pdo->prepare($sqlCadastro);
 $consultaCadastro->execute();
 
@@ -12,7 +14,7 @@ $dadosCadastro = $consultaCadastro->fetchAll(PDO::FETCH_OBJ);
     <div class="card shadow">
         <div class="card-header">
             <div class="float-start">
-                <h2>Listagem de Categoria</h2>
+                <h2>Listagem de <span>Categoria</span></h2>
             </div>
 
             <div class="float-end">

@@ -1,13 +1,12 @@
 <?php
-if (!isset($page))
-    exit;
+if (!isset($page)) exit;
 ?>
 
 <div class="container pt-5 pb-5">
     <div class="card shadow">
         <div class="card-header">
             <div class="float-start">
-                <h2>Listagem de Serviços</h2>
+                <h2>Listagem de <span>Serviços</span></h2>
             </div>
 
             <div class="float-end">
@@ -50,16 +49,16 @@ if (!isset($page))
                         <tr>
                             <td><?= $dados->id_servico ?></td>
                             <td><?= htmlspecialchars($dados->nome_servico) ?></td>
-                            <td><span class="badge bg-info text-dark"><?= htmlspecialchars($dados->nome_categoria) ?></span></td>
+                            <td><span class="badge bg-light text-dark"><?= htmlspecialchars($dados->nome_categoria) ?></span></td>
                             <td>R$ <?= $precoFormatado ?></td>
                             <td><?= $dados->duracao_horas ? $dados->duracao_horas . ' h' : '-' ?></td>
 
                             <td>
-                                <a href="cadastrar/servicos/<?= $dados->id_servico ?>" class="btn btn-success btn-sm">
+                                <a href="cadastrar/servicos/<?= $dados->id_servico ?>" class="btn btn-success btn">
                                     Editar
                                 </a>
 
-                                <a href="javascript:excluir(<?= $dados->id_servico ?>)" class="btn btn-danger btn-sm">
+                                <a href="javascript:excluir(<?= $dados->id_servico ?>)" class="btn btn-danger btn">
                                     Excluir
                                 </a>
                             </td>

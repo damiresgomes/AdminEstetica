@@ -1,7 +1,7 @@
 <div class="login">
-    <div class="card shadow">
+    <div class="card shadow text-white">
         <div class="card-header text-center">
-            <img src="../imgs/imagens/icone.png" alt="IMDB" class="w-100">
+            <img src="../imgs/imagens/icone.png" alt="BRITO ESTÉTICA AUTOMOTIVA" class="w-100">
         </div>
         <div class="card-body">
             <form name="formLogin" method="post" data-parsley-validate>
