@@ -14,4 +14,5 @@ type DadosDashboard = {
     totalServicos: number;
     totalUsuarios: number;
     totalContatos: number;
+    servicoMaisVendido: string;
 };

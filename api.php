@@ -27,6 +27,25 @@ try {
         $ag['valor'] = (float)$ag['valor'];
     }
 
+    $sqlServicoMaisVendido = "
+    WITH ContagemServicos AS (
+        SELECT 
+            s.nome_servico,
+            COUNT(ags.id_agendamento) AS total_vendas
+        FROM servicos s
+        LEFT JOIN agendamento_servico ags ON s.id_servico = ags.id_servico
+        GROUP BY s.id_servico, s.nome_servico
+    )
+    SELECT nome_servico 
+    FROM ContagemServicos 
+    ORDER BY total_vendas DESC 
+    LIMIT 1;
+    ";
+
+    $stmtServico = $pdo->query($sqlServicoMaisVendido);
+    $servicoMaisVendido = $stmtServico ? $stmtServico->fetchColumn() : null;
+    $servicoMaisVendido = $servicoMaisVendido ?: 'Nenhum serviço';
+
     $totalClientes = $pdo->query("SELECT COUNT(*) FROM clientes")->fetchColumn();
     $totalServicos = $pdo->query("SELECT COUNT(*) FROM servicos")->fetchColumn();
     $totalUsuarios = $pdo->query("SELECT COUNT(*) FROM usuario WHERE ativo = 'Sim'")->fetchColumn();
@@ -35,7 +54,8 @@ try {
         'agendamentos'  => $agendamentos,
         'totalClientes' => (int)$totalClientes,
         'totalServicos' => (int)$totalServicos,
-        'totalUsuarios' => (int)$totalUsuarios
+        'totalUsuarios' => (int)$totalUsuarios,
+        'servicoMaisVendido'  => $servicoMaisVendido
     ];
 
     http_response_code(200);

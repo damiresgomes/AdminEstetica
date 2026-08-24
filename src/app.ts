@@ -50,6 +50,9 @@ function atualizarCards(dados: DadosDashboard): void {
 
     const elUsuarios = document.getElementById('card-total-usuarios');
     if (elUsuarios) elUsuarios.innerText = dados.totalUsuarios.toString();
+
+    const elMaisVendido = document.getElementById('card-mais-vendido');
+    if (elMaisVendido) elMaisVendido.innerText = dados.servicoMaisVendido || 'N/A';
 }
 
 function exibirTabelaAgendamentos(agendamentos: Agendamento[]): void {
