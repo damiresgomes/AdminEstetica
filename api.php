@@ -27,20 +27,20 @@ try {
         $ag['valor'] = (float)$ag['valor'];
     }
 
-    $sqlServicoMaisVendido = "
-    WITH ContagemServicos AS (
-        SELECT 
-            s.nome_servico,
-            COUNT(ags.id_agendamento) AS total_vendas
-        FROM servicos s
-        LEFT JOIN agendamento_servico ags ON s.id_servico = ags.id_servico
-        GROUP BY s.id_servico, s.nome_servico
-    )
-    SELECT nome_servico 
-    FROM ContagemServicos 
-    ORDER BY total_vendas DESC 
-    LIMIT 1;
-    ";
+    /*CREATE OR REPLACE VIEW vw_servico_mais_vendido AS
+        WITH ContagemServicos AS (
+            SELECT 
+                s.nome_servico,
+                COUNT(ags.id_agendamento) AS total_vendas
+            FROM servicos s
+            LEFT JOIN agendamento_servico ags ON s.id_servico = ags.id_servico
+            GROUP BY s.id_servico, s.nome_servico
+        )
+        SELECT nome_servico, total_vendas
+        FROM ContagemServicos 
+        ORDER BY total_vendas DESC 
+        LIMIT 1;*/
+    $sqlServicoMaisVendido = "SELECT nome_servico FROM vw_servico_mais_vendido";
 
     $stmtServico = $pdo->query($sqlServicoMaisVendido);
     $servicoMaisVendido = $stmtServico ? $stmtServico->fetchColumn() : null;
