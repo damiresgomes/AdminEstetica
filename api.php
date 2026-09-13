@@ -1,4 +1,5 @@
 <?php
+//algumas configurações e informando que vai uma aplicação json
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
@@ -13,49 +14,51 @@ try {
                             a.modelo_veiculo,
                             a.status,
                             c.nome AS cliente,
+                            s.nome_servico,
                             150.00 AS valor
                         FROM agendamentos a
                         INNER JOIN clientes c ON a.id_cliente = c.id_cliente
+                        LEFT JOIN agendamento_servico ags ON a.id_agendamento = ags.id_agendamento
+                        LEFT JOIN servicos s ON ags.id_servico = s.id_servico
+                        GROUP BY
+                            a.id_agendamento
                         ORDER BY a.data_hora DESC";
-    
-    $stmt = $pdo->prepare($sqlAgendamentos);
-    $stmt->execute();
-    $agendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $consultaAgendamento = $pdo->prepare($sqlAgendamentos);
+    $consultaAgendamento->execute();
+    $agendamentos = $consultaAgendamento->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($agendamentos as &$ag) {
-        $ag['id_agendamento'] = (int)$ag['id_agendamento'];
-        $ag['valor'] = (float)$ag['valor'];
+        $ag['id_agendamento'] = (int) $ag['id_agendamento'];
+        $ag['valor'] = (float) $ag['valor'];
+    }
+    unset($ag);
+
+    $sqlServicoMaisVendido = "SELECT nome_servico, total_vendas FROM vw_servico_mais_vendido";
+    $consultaServico = $pdo->query($sqlServicoMaisVendido);
+    $dadosServico = $consultaServico ? $consultaServico->fetch(PDO::FETCH_ASSOC) : null;
+
+    if ($dadosServico && isset($dadosServico['nome_servico'])) {
+        $servicoMaisVendido = $dadosServico['nome_servico'];
+        $totalVendido = (int) $dadosServico['total_vendas'];
+    } else {
+        $servicoMaisVendido = 'Nenhum serviço';
+        $totalVendido = 0;
     }
 
-    /*CREATE OR REPLACE VIEW vw_servico_mais_vendido AS
-        WITH ContagemServicos AS (
-            SELECT 
-                s.nome_servico,
-                COUNT(ags.id_agendamento) AS total_vendas
-            FROM servicos s
-            LEFT JOIN agendamento_servico ags ON s.id_servico = ags.id_servico
-            GROUP BY s.id_servico, s.nome_servico
-        )
-        SELECT nome_servico, total_vendas
-        FROM ContagemServicos 
-        ORDER BY total_vendas DESC 
-        LIMIT 1;*/
-    $sqlServicoMaisVendido = "SELECT nome_servico FROM vw_servico_mais_vendido";
-
-    $stmtServico = $pdo->query($sqlServicoMaisVendido);
-    $servicoMaisVendido = $stmtServico ? $stmtServico->fetchColumn() : null;
-    $servicoMaisVendido = $servicoMaisVendido ?: 'Nenhum serviço';
-
-    $totalClientes = $pdo->query("SELECT COUNT(*) FROM clientes")->fetchColumn();
-    $totalServicos = $pdo->query("SELECT COUNT(*) FROM servicos")->fetchColumn();
-    $totalUsuarios = $pdo->query("SELECT COUNT(*) FROM usuario WHERE ativo = 'Sim'")->fetchColumn();
+    $totalClientes = (int) $pdo->query("SELECT COUNT(*) FROM clientes")->fetchColumn();
+    $totalServicos = (int) $pdo->query("SELECT COUNT(*) FROM servicos")->fetchColumn();
+    $totalUsuarios = (int) $pdo->query("SELECT COUNT(*) FROM usuario WHERE ativo = 'Sim'")->fetchColumn();
+    $totalCancelados = (int) $pdo->query("SELECT COUNT(*) FROM agendamentos WHERE LOWER(TRIM(status)) = 'cancelado'")->fetchColumn();
 
     $resposta = [
-        'agendamentos'  => $agendamentos,
-        'totalClientes' => (int)$totalClientes,
-        'totalServicos' => (int)$totalServicos,
-        'totalUsuarios' => (int)$totalUsuarios,
-        'servicoMaisVendido'  => $servicoMaisVendido
+        'agendamentos'       => $agendamentos,
+        'totalClientes'      => $totalClientes,
+        'totalServicos'      => $totalServicos,
+        'totalUsuarios'      => $totalUsuarios,
+        'servicoMaisVendido' => $servicoMaisVendido,
+        'totalVendido'       => $totalVendido,
+        'totalCancelados'    => $totalCancelados
     ];
 
     http_response_code(200);

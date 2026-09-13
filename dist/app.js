@@ -1,10 +1,16 @@
 "use strict";
+//a funcao é do tipo promessa void
+//recebe uma promessa da api e nao devolve nada
 async function carregarDashboard() {
     try {
+        //a variavel resposta armazena oq o fetch vai buscar no arquivo api.php, com o await que é de espera
+        // esta requisição ser feita para armazenar na variavel
         const resposta = await fetch('../api.php');
+        //verifica se a resposta é ok, se o protocolo esta no codigo 200 ou seja (funcional)
         if (!resposta.ok) {
             throw new Error(`Erro na requisição: Status ${resposta.status}`);
         }
+        //await o javascript sabe que tem que esperar essa promise ser resolvida ou rejeitada
         const dados = await resposta.json();
         atualizarCards(dados);
         exibirTabelaAgendamentos(dados.agendamentos);
@@ -27,27 +33,26 @@ function atualizarCards(dados) {
     const receitaTotal = agendamentos.reduce((acumulador, item) => {
         return acumulador + Number(item.valor || 0);
     }, 0);
-    const totalAgendamentos = agendamentos.reduce((acumulador) => {
-        return acumulador + 1;
-    }, 0);
-    const elReceita = document.getElementById('card-total-total');
-    if (elReceita)
-        elReceita.innerText = formatarMoeda(receitaTotal);
-    const elAgendamentos = document.getElementById('card-total-agendamentos');
-    if (elAgendamentos)
-        elAgendamentos.innerText = totalAgendamentos.toString();
-    const elClientes = document.getElementById('card-total-clientes');
-    if (elClientes)
-        elClientes.innerText = dados.totalClientes.toString();
-    const elServicos = document.getElementById('card-total-servicos');
-    if (elServicos)
-        elServicos.innerText = dados.totalServicos.toString();
-    const elUsuarios = document.getElementById('card-total-usuarios');
-    if (elUsuarios)
-        elUsuarios.innerText = dados.totalUsuarios.toString();
-    const elMaisVendido = document.getElementById('card-mais-vendido');
-    if (elMaisVendido)
-        elMaisVendido.innerText = dados.servicoMaisVendido || 'N/A';
+    const totalConfirmados = agendamentos.filter(ag => ag.status && ag.status.trim().toLowerCase() === 'confirmado').length;
+    const totalPendentes = agendamentos.filter(ag => ag.status && ag.status.trim().toLowerCase() === 'pendente').length;
+    const listaCards = [
+        { id: 'card-agendamentos-confirmados', valor: totalConfirmados.toString() },
+        { id: 'card-agendamentos-pendentes', valor: totalPendentes.toString() },
+        { id: 'card-total-total', valor: formatarMoeda(receitaTotal) },
+        { id: 'card-total-agendamentos', valor: agendamentos.length.toString() },
+        { id: 'card-total-clientes', valor: dados.totalClientes.toString() },
+        { id: 'card-total-servicos', valor: dados.totalServicos.toString() },
+        { id: 'card-total-usuarios', valor: dados.totalUsuarios.toString() },
+        { id: 'card-mais-vendido', valor: dados.servicoMaisVendido },
+        { id: 'card-total-vendido', valor: `(${dados.totalVendido} vendas)` },
+        { id: 'card-agendamentos-cancelados', valor: (dados.totalCancelados ?? 0).toString() }
+    ];
+    listaCards.forEach((card) => {
+        const elemento = document.getElementById(card.id);
+        if (elemento) {
+            elemento.innerText = card.valor;
+        }
+    });
 }
 function exibirTabelaAgendamentos(agendamentos) {
     const tbody = document.getElementById('tabela-agendamentos-body');
@@ -58,22 +63,29 @@ function exibirTabelaAgendamentos(agendamentos) {
         tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">Nenhum agendamento registrado.</td></tr>';
         return;
     }
-    agendamentos.forEach((item) => {
-        const tr = document.createElement('tr');
+    const linhas = agendamentos.map((item) => {
+        //new date = obtendo a date e hora atual em js
+        //apresenta datas formatada
         const dataFormatada = new Date(item.data_hora).toLocaleString('pt-BR', {
+            //um objeto passado como 2 parametro, onde defino algumas configurações
+            //um style de data
             dateStyle: 'short',
             timeStyle: 'short'
         });
-        tr.innerHTML = `
-            <td>#${item.id_agendamento}</td>
-            <td class="fw-bold text-dark">${item.cliente}</td>
-            <td>${item.modelo_veiculo}</td>
-            <td>${item.placa_veiculo}</td>
-            <td>${dataFormatada}</td>
-            <td>${item.status}</td>
+        const eConfirmado = item.status && item.status.trim().toLowerCase() === 'confirmado';
+        const badgeClass = eConfirmado ? 'bg-success' : 'bg-warning text-dark';
+        return `
+            <tr>
+                <td>#${item.id_agendamento}</td>
+                <td class="fw-bold text-dark">${item.cliente}</td>
+                <td>${item.modelo_veiculo}</td>
+                <td>${item.placa_veiculo}</td>
+                <td>${dataFormatada}</td>
+                <td><span class="badge ${badgeClass}">${item.status}</span></td>
+            </tr>
         `;
-        tbody.appendChild(tr);
     });
+    tbody.innerHTML = linhas.join('');
 }
 function formatarMoeda(valor) {
     return valor.toLocaleString('pt-BR', {

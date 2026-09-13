@@ -2,6 +2,13 @@ body {
     font: 16px Inter, Arial;
     color: #000000;
 }
+button.btn.btn-primary.dropdown-toggle {
+    cursor: pointer;
+    background-color: black;
+}
+.bg-light {
+    background-color: #0683ef26 !important;
+}
 .navbar-toggler {
   border-color: rgba(255, 255, 255, 0.5) !important;
 }
@@ -10,19 +17,18 @@ body {
 }
 .navbar-brand {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 24px;
   letter-spacing: 2px;
   color: #ffffff !important;
 }
 .brand-gold {
-  font-style: italic;
   color: #5CB3FF;
   font-weight: 400;
 }
 .navbar-nav .nav-link {
   font-family: 'Montserrat', sans-serif;
-  color: #cccccc !important;
+  color: #8d9399 !important;
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 1px;
@@ -116,6 +122,8 @@ body {
 }
 .card-body {
     padding: 2rem;
+    border-radius: 10px;
+    background-color: white;
 }
 .card-body label {
     font-weight: 600;

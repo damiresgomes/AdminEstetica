@@ -5,7 +5,7 @@ if (!isset($page))
 
 <div class="container">
     <header>
-        <h1>Dashboard <span class="da">da</span> <br> <span>Estetica Automotiva</span></h1>
+        <h1>Dashboard <br> <span>Estetica Automotiva</span></h1>
         <p>Visão geral de agendamentos, serviços e cadastros</p>
     </header>
 
@@ -16,31 +16,48 @@ if (!isset($page))
     </div>
 
     <div class="cards-grid">
-        
+
         <div class="card card-blue">
             <div class="card-label">Receita Total</div>
             <div id="card-total-total" class="card-value">Carregando...</div>
         </div>
         <div class="card card-green">
-            <div class="card-label">Agendamentos</div>
+            <div class="card-label">Total de Agendamentos</div>
             <div id="card-total-agendamentos" class="card-value">Carregando...</div>
         </div>
         <div class="card card-orange">
-            <div class="card-label">Clientes</div>
+            <div class="card-label">Total de Clientes</div>
             <div id="card-total-clientes" class="card-value">Carregando...</div>
         </div>
         <div class="card card-blue">
-            <div class="card-label">Serviços</div>
+            <div class="card-label">Total de Serviços</div>
             <div id="card-total-servicos" class="card-value">Carregando...</div>
         </div>
         <div class="card card-green">
-            <div class="card-label">Usuários</div>
+            <div class="card-label">Total de Usuários</div>
             <div id="card-total-usuarios" class="card-value">Carregando...</div>
         </div>
         <div class="card card-orange">
             <div class="card-label">Serviço Mais Vendido</div>
             <div id="card-mais-vendido" class="card-value">Carregando...</div>
+            <div id="card-total-vendido" class="card-value">Carregando...</div>
         </div>
+        <div class="card card-blue">
+            <div class="card-label">Agendamentos Confirmados</div>
+            <div id="card-agendamentos-confirmados" class="card-value">Carregando...</div>
+        </div>
+
+        <div class="card card-green">
+            <div class="card-label">Agendamentos Pendentes</div>
+            <div id="card-agendamentos-pendentes" class="card-value">Carregando...</div>
+        </div>
+
+        <div class="card card-orange">
+            <div class="card-label">Agendamento Cancelados</div>
+            <div id="card-agendamentos-cancelados" class="card-value">Carregando...</div>
+        </div>
+
+
     </div>
 
     <div class="tabela-container">

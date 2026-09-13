@@ -138,6 +138,7 @@ if (!empty($salario)) {
     <?php
     if (!empty($id)) {
         ?>
+          //id     //se estiver vazio vai remover o required
         $('#senha').removeAttr('required').parsley().reset();
         $('#senha2').removeAttr('required').parsley().reset();
         <?php

@@ -1,5 +1,4 @@
-<?php if (!isset($page))
-    exit; ?>
+<?php if (!isset($page)) exit; ?>
 <?php
 
 $id = $param[2] ?? NULL;

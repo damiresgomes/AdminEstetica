@@ -1,6 +1,7 @@
 type Agendamento = {
     id_agendamento: number;
     cliente: string;
+    nome_servico?: string;
     modelo_veiculo: string;
     placa_veiculo: string;
     valor: number;
@@ -13,6 +14,7 @@ type DadosDashboard = {
     totalClientes: number;
     totalServicos: number;
     totalUsuarios: number;
-    totalContatos: number;
     servicoMaisVendido: string;
+    totalVendido: number;
+    totalCancelados?: number;
 };

@@ -1,4 +1,5 @@
 <?php
+    //se a pagina estiver branca, vai sair.
     if (!isset($page)) exit;
 
     if ($_POST) {
@@ -7,7 +8,7 @@
             $$variavel = $valor;
         }
 
-        if (strlen($nome) < 5) {
+        if (strlen($nome) < 5 or empty($nome)) {
             echo "<script>mensagem('Preencha o nome completo','error');</script>";
             exit;
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -21,7 +22,7 @@
             exit;
         }
 
-
+        //retira a barrinha
         $data = explode("/", $datanascimento);
         $datanascimento = $data[2] ."-". $data[1] ."-". $data[0];
 
@@ -30,6 +31,7 @@
 
         if (empty($id)) {
 
+        //codifica a senha que estou trazendo em um algoritmo de senha.
         $senha = password_hash($senha, PASSWORD_BCRYPT); //criptografando a senha e mudando ela
 
             $sql = "INSERT INTO usuario (nome, email, senha, cpf, salario, datanascimento, ativo)
@@ -97,9 +99,14 @@
         if ($consulta->execute()) {
             echo "<script>mensagem('Registro Salvo','success', 'listar/usuario');</script>";
             exit;
+        } else {
+            echo "<script>mensagem('Erro ao salvar','error');</script>";
+                exit;
         }
-
-        echo "<script>mensagem('Erro ao salvar','error');</script>";
-        exit;
     }
+    
+    
+} else {
+    echo "<script>mensagem('Requisição inválida','error');</script>";
+                exit;
 }

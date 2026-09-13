@@ -1,6 +1,5 @@
 <?php
-if (!isset($page))
-    exit;
+if (!isset($page)) exit;
 
 if ($_POST) {
 
@@ -28,12 +27,12 @@ if ($_POST) {
 
     } else {
 
-        echo "<script>mensagem('Erro ao salvar categoria','erro');</script>";
+        echo "<script>mensagem('Erro ao salvar categoria','error');</script>";
 
     }
 
 } else {
 
-    echo "<script>mensagem('Erro ao acessar página','erro');</script>";
+    echo "<script>mensagem('Erro ao acessar página','error');</script>";
 
 }
