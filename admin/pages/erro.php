@@ -1,6 +1,6 @@
-<h1 class="text-center">Página não encontrada!</h1>
+<h1 class="text-center mt-5">Página não encontrada!</h1>
 <p class="text-center">
-    <img src="../../imgs/erro.webp" class="img-fluid" alt="Erro 404">
+    <img src="/AdminEstetica/imgs/imagens/erro.webp" class="img-fluid" style="max-width: 440px;" alt="Erro 404">
 </p>
 <h2 class="text-center">
     A página que está tentando acessar não existe ou foi removida.

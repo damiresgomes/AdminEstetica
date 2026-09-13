@@ -53,11 +53,25 @@ if ($_POST) {
         $consultaCadastro->bindParam(":id", $id);
     }
 
-    if ($consultaCadastro->execute()) {
-        echo "<script>mensagem('Registro salvo com sucesso','success','listar/servicos');</script>";
-        exit;
-    } else {
-        echo "<script>mensagem('Falha ao salvar registro','error');</script>";
+    try {
+        if ($consultaCadastro->execute()) {
+            echo "<script>mensagem('Registro salvo com sucesso','success','listar/servicos');</script>";
+            exit;
+        } else {
+            echo "<script>mensagem('Falha ao salvar registro','error');</script>";
+            exit;
+        }
+    } catch (PDOException $e) {
+        $mensagemErro = $e->getMessage();
+
+        // Trata o texto retornado pelo SIGNAL SQLSTATE para extrair apenas a mensagem customizada
+        if (strpos($mensagemErro, '1644') !== false) {
+            $partes = explode('1644 ', $mensagemErro);
+            $mensagemErro = $partes[1] ?? $mensagemErro;
+        }
+
+        // Exibe a mensagem da Trigger utilizando a sua própria função JavaScript
+        echo "<script>mensagem(" . json_encode($mensagemErro) . ", 'error');</script>";
         exit;
     }
 

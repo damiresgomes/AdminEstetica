@@ -1,11 +1,11 @@
 "use strict";
 //a funcao é do tipo promessa void
 //recebe uma promessa da api e nao devolve nada
-async function carregarDashboard() {
+async function carregarDashboard(termoBusca = '') {
     try {
         //a variavel resposta armazena oq o fetch vai buscar no arquivo api.php, com o await que é de espera
         // esta requisição ser feita para armazenar na variavel
-        const resposta = await fetch('../api.php');
+        const resposta = await fetch(`../api.php?busca=${encodeURIComponent(termoBusca)}`);
         //verifica se a resposta é ok, se o protocolo esta no codigo 200 ou seja (funcional)
         if (!resposta.ok) {
             throw new Error(`Erro na requisição: Status ${resposta.status}`);
@@ -30,9 +30,9 @@ async function carregarDashboard() {
 }
 function atualizarCards(dados) {
     const agendamentos = dados.agendamentos;
-    const receitaTotal = agendamentos.reduce((acumulador, item) => {
-        return acumulador + Number(item.valor || 0);
-    }, 0);
+    const receitaTotal = agendamentos
+        .filter(ag => String(ag.status || '').trim().toLowerCase() === 'confirmado')
+        .reduce((acumulador, item) => acumulador + Number(item.valor || 0), 0);
     const totalConfirmados = agendamentos.filter(ag => ag.status && ag.status.trim().toLowerCase() === 'confirmado').length;
     const totalPendentes = agendamentos.filter(ag => ag.status && ag.status.trim().toLowerCase() === 'pendente').length;
     const listaCards = [
@@ -60,7 +60,7 @@ function exibirTabelaAgendamentos(agendamentos) {
         return;
     tbody.innerHTML = '';
     if (agendamentos.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">Nenhum agendamento registrado.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">Nenhum agendamento registrado.</td></tr>';
         return;
     }
     const linhas = agendamentos.map((item) => {
@@ -72,12 +72,19 @@ function exibirTabelaAgendamentos(agendamentos) {
             dateStyle: 'short',
             timeStyle: 'short'
         });
-        const eConfirmado = item.status && item.status.trim().toLowerCase() === 'confirmado';
-        const badgeClass = eConfirmado ? 'bg-success' : 'bg-warning text-dark';
+        const statusLower = item.status?.trim().toLowerCase();
+        let badgeClass = 'bg-warning text-dark';
+        if (statusLower === 'confirmado') {
+            badgeClass = 'bg-success';
+        }
+        else if (statusLower === 'cancelado') {
+            badgeClass = 'bg-danger';
+        }
         return `
             <tr>
                 <td>#${item.id_agendamento}</td>
                 <td class="fw-bold text-dark">${item.cliente}</td>
+                <td>${item.nome_servico}</td>
                 <td>${item.modelo_veiculo}</td>
                 <td>${item.placa_veiculo}</td>
                 <td>${dataFormatada}</td>
@@ -93,6 +100,11 @@ function formatarMoeda(valor) {
         currency: 'BRL'
     });
 }
+// Escuta o input do usuário e chama a API a cada caractere
 document.addEventListener('DOMContentLoaded', () => {
     carregarDashboard();
+    const inputBusca = document.getElementById('input-busca');
+    inputBusca?.addEventListener('input', () => {
+        carregarDashboard(inputBusca.value);
+    });
 });
