@@ -2,19 +2,24 @@ body {
     font: 16px Inter, Arial;
     color: #000000;
 }
+
 button.btn.btn-primary.dropdown-toggle {
     cursor: pointer;
     background-color: black;
 }
+
 .bg-light {
     background-color: #0683ef26 !important;
 }
+
 .navbar-toggler {
   border-color: rgba(255, 255, 255, 0.5) !important;
 }
+
 .navbar-toggler-icon {
   filter: brightness(0) invert(1) !important;
 }
+
 .navbar-brand {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
@@ -22,10 +27,12 @@ button.btn.btn-primary.dropdown-toggle {
   letter-spacing: 2px;
   color: #ffffff !important;
 }
+
 .brand-gold {
   color: #5CB3FF;
   font-weight: 400;
 }
+
 .navbar-nav .nav-link {
   font-family: 'Montserrat', sans-serif;
   color: #8d9399 !important;
@@ -35,11 +42,13 @@ button.btn.btn-primary.dropdown-toggle {
   margin: 0 10px;
   transition: color 0.3s ease;
 }
+
 .navbar-nav .nav-link:hover,
 .navbar-nav {
     font-family: 'Montserrat', sans-serif;
   color: #5CB3FF !important;
 }
+
 .card.shadow {
     border: none;
     border-radius: 12px;
@@ -47,6 +56,7 @@ button.btn.btn-primary.dropdown-toggle {
     background-color: #ffffff;
     overflow: hidden;
 }
+
 .card-header {
     background-color: #ffffff;
     border-bottom: 1px solid #f0f0f0;
@@ -55,6 +65,7 @@ button.btn.btn-primary.dropdown-toggle {
     justify-content: space-between;
     align-items: center;
 }
+
 .card-header h2 {
     font-weight: 800;
     color: #000000;
@@ -81,11 +92,13 @@ button.btn.btn-primary.dropdown-toggle {
     box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
     margin-bottom: 6px;
 }
+
 .btn-success:hover {
     background-color: #059669;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
 }
+
 .btn-danger {
     border: none;
     border-radius: 8px;
@@ -93,6 +106,7 @@ button.btn.btn-primary.dropdown-toggle {
     font-weight: 600 ;
     font-size: 0.9rem;
 }
+
 .btn-warning{
     border: none;
     border-radius: 8px;
@@ -116,21 +130,25 @@ button.btn.btn-primary.dropdown-toggle {
     background-color: #3b82f6 !important;
     box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
 }
+
 .card-header .float-end a.btn-success:first-child:hover {
     background-color: #2563eb !important;
     box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
+
 .card-body {
     padding: 2rem;
     border-radius: 10px;
     background-color: white;
 }
+
 .card-body label {
     font-weight: 600;
     color: #475569;
     margin-bottom: 8px;
     font-size: 0.9rem;
 }
+
 .form-control {
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -139,29 +157,35 @@ button.btn.btn-primary.dropdown-toggle {
     color: #334155;
     transition: all 0.2s ease-in-out;
 }
+
 .form-control:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     outline: none;
 }
+
 .form-control[readonly] {
     background-color: #ffffff;
     color: #94a3b8;
     font-weight: 600;
     text-align: center;
 }
+
 .login {
     width: 400px;
     margin: 100px auto;
 }
+
 .login .card-shadow {
     background-color: #3b82f6;
 }
+
 .parsley-errors-list li {
     list-style: none;
     color: #F00;
     margin: 5px 0px 5px -30px;
 }
+
 .navbar .navbar-nav .nav-link {
     color: #FFF;
     font-family: 'Montserrat', sans-serif;
@@ -172,11 +196,13 @@ button.btn.btn-primary.dropdown-toggle {
 .navbar .navbar-nav .nav-link:hover {
     color: #94c6f1ac;
 }
+
 .bg-dark {
     padding: 20px;
     background-color: #000000 !important;
     color: #FFF;
 }
+
 label {
     margin: 10px 0 5px 0;
     font-weight: bold;
@@ -189,21 +215,25 @@ label {
     margin: 20px auto;
     padding: 0 15px;
 }
+
 .card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
     padding: 1rem;
 }
+
 .card-header h2 {
     font-size: 22px;
 }
+
 .card-header .float-end {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
 .card-header .float-end a.btn-success,
 .btn-success {
     width: 100%;
@@ -217,6 +247,7 @@ label {
 .navbar-brand {
     font-size: 18px;
 }
+
 .navbar-nav .nav-link {
     margin: 5px 0;
 }

@@ -64,13 +64,11 @@ if ($_POST) {
     } catch (PDOException $e) {
         $mensagemErro = $e->getMessage();
 
-        // Trata o texto retornado pelo SIGNAL SQLSTATE para extrair apenas a mensagem customizada
         if (strpos($mensagemErro, '1644') !== false) {
             $partes = explode('1644 ', $mensagemErro);
             $mensagemErro = $partes[1] ?? $mensagemErro;
         }
 
-        // Exibe a mensagem da Trigger utilizando a sua própria função JavaScript
         echo "<script>mensagem(" . json_encode($mensagemErro) . ", 'error');</script>";
         exit;
     }

@@ -33,8 +33,6 @@ if (!isset($page)) exit;
                 </thead>
                 <tbody>
                     <?php
-                    //Demostra reutilização de código: Em vez de repetir a cláusula INNER JOIN com a tabela de categorias, você isolou essa regra dentro de uma Stored Function (fn_obter_nome_categoria)
-                    //Simplifica o script: A consulta principal fica limpa, apenas passando a chave estrangeira s.id_categoria como parâmetro para a função retornar o nome.
                     $sqlListar = "SELECT s.id_servico, s.nome_servico, s.preco, s.duracao_horas, fn_obter_nome_categoria (s.id_categoria) as nome_categoria
                                   FROM servicos s
                                   ORDER BY s.nome_servico";

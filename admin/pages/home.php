@@ -1,6 +1,5 @@
 <?php
-if (!isset($page))
-    exit;
+if (!isset($page)) exit;
 ?>
 
 <div class="container">
@@ -60,7 +59,7 @@ if (!isset($page))
 
     <div class="tabela-container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="fw-bold mb-0">AGENDAMENTOS RECENTES</h5>
+            <h5 class="fw-bold mb-0">TODOS OS AGENDAMENTOS: </h5>
 
             <div style="max-width: 300px; width: 100%;">
                 <input type="text" id="input-busca" class="form-control" placeholder="Buscar por cliente ou veículo...">

@@ -1,6 +1,5 @@
 <?php
-session_start(); //arquivo que vai criar no temporario do servidor, onde vai guardar algumas informacoes.
-//(cada navegador abre uma sesao para cada um.)
+session_start();
 
 require "../config.php";
 require "functions.php";
@@ -14,9 +13,7 @@ require "functions.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Administrativo - Estética</title>
 
-    <!--ESSE BASE VAI OBRIGAR TODO MUNDO A PROCURAR AS INFORMACOES NESSE ENDERECO-->
     <base href="http://<?= $_SERVER["HTTP_HOST"] . $_SERVER["SCRIPT_NAME"] ?>">
-    <!--                    VAI PEGAR O LOCAL HOST       VAI PEGAR O INDEX.HTML-->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -48,8 +45,8 @@ require "functions.php";
                 title: mensagem,
                 confirmButtonText: "OK",
             }).then((result) => {
-                if (tipo == "error") history.back();//se for um erro, ele volta
-                else location.href = link;//se nao vai mandar pra um link que eu quiser
+                if (tipo == "error") history.back();
+                else location.href = link;
             });
         }
     </script>
@@ -57,22 +54,12 @@ require "functions.php";
 
 <body>
     <?php
-    //verificar se esta logado e se esta sendo enviado dados.
-    //verificacao dos dados.
-    //verificar se esta logado - mostro a tela de login
-    //se esta logado - mostrar a tela inicial
-    
-    //verifico se a sessao existe e se foi enviado post
     if ((!isset($_SESSION["brito_estetica"])) && ($_POST)) {
 
-        //verificar se o usuario e senha sao válidos
-        //recuperar as variaveis (email e senha)
-        //trim tira os espacos em branco
         $email = trim($_POST["email"] ?? NULL);
         $senha = trim($_POST["senha"] ?? NULL);
 
-        //filter_var verifica se um campo é um email, url, ip, inteiro, string...ou seja, verifica se é um valor.
-        //o if vai verificar se nao é um email.
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo "<script>mensagem('E-mail inválido','error');</script>";
             exit;
@@ -87,11 +74,11 @@ require "functions.php";
                     AND email = :email 
                     limit 1";
 
-        $consultaLogin = $pdo->prepare($sqlLogin); //ele vai verificar se existe aquela tabela ou nao. (preparar o sql para a execucao)
-        $consultaLogin->bindParam(":email", $email);//:email vai ser substituido por $email.
+        $consultaLogin = $pdo->prepare($sqlLogin);
+        $consultaLogin->bindParam(":email", $email);
         $consultaLogin->execute();
 
-        $dadosLogin = $consultaLogin->fetch(PDO::FETCH_OBJ);//armazernar a consulta dentro da variavel dadosLogin, acessa pela setinha (OBJ)
+        $dadosLogin = $consultaLogin->fetch(PDO::FETCH_OBJ);
     
         if (empty($dadosLogin->id)) {
             echo "<script>mensagem('Login inválido','error');</script>";
@@ -101,20 +88,16 @@ require "functions.php";
             exit;
         }
 
-        //registrar a sessao
         $_SESSION["brito_estetica"] = array(
             "id" => $dadosLogin->id,
             "nome" => $dadosLogin->nome
         );
 
-        //redirecionar a pagina
         echo "<script>location.href='index.php';</script>";
 
     } else if (!isset($_SESSION["brito_estetica"])) {
-        //tela de login
         require "pages/login.php";
     } else {
-        //mostar a tela do sistema
         ?>
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
@@ -160,7 +143,6 @@ require "functions.php";
             </nav>
             <main>
                 <?php
-                //validar a url e carregar a url
                 $param = $_GET["param"] ?? "pages/home";
                 $param = explode("/", $param);
 

@@ -1,9 +1,7 @@
 <?php
-    //se a pagina estiver branca, vai sair.
     if (!isset($page)) exit;
 
     if ($_POST) {
-        //recuperar as variaveis do form
         foreach($_POST as $variavel => $valor) {
             $$variavel = $valor;
         }

@@ -1,17 +1,11 @@
-                                   //a funcao é do tipo promessa void
-                                   //recebe uma promessa da api e nao devolve nada
 async function carregarDashboard(termoBusca: string = ''): Promise<void> {
     try {
-        //a variavel resposta armazena oq o fetch vai buscar no arquivo api.php, com o await que é de espera
-        // esta requisição ser feita para armazenar na variavel
         const resposta = await fetch(`../api.php?busca=${encodeURIComponent(termoBusca)}`);
 
-        //verifica se a resposta é ok, se o protocolo esta no codigo 200 ou seja (funcional)
         if (!resposta.ok) {
             throw new Error(`Erro na requisição: Status ${resposta.status}`);
         }
 
-                                    //await o javascript sabe que tem que esperar essa promise ser resolvida ou rejeitada
         const dados: DadosDashboard = await resposta.json();
 
         atualizarCards(dados);
@@ -70,36 +64,29 @@ function atualizarCards(dados: DadosDashboard): void {
 }
 
 function exibirTabelaAgendamentos(agendamentos: Agendamento[]): void {
-
     const tbody = document.getElementById('tabela-agendamentos-body');
 
     if (!tbody) return;
     tbody.innerHTML = '';
 
+    
     if (agendamentos.length === 0) {
         tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">Nenhum agendamento registrado.</td></tr>';
         return;
     }
 
     const linhas = agendamentos.map((item) => {
-        //new date = obtendo a date e hora atual em js
-
-                                                      //apresenta datas formatada
         const dataFormatada = new Date(item.data_hora).toLocaleString('pt-BR', {
-            //um objeto passado como 2 parametro, onde defino algumas configurações
-
-            //um style de data
             dateStyle: 'short',
             timeStyle: 'short'
         });
 
     const statusLower = item.status?.trim().toLowerCase();
-        let badgeClass = 'bg-warning text-dark';
-
+        let cardStatus = 'bg-warning text-dark';
         if (statusLower === 'confirmado') {
-            badgeClass = 'bg-success';
+            cardStatus = 'bg-success';
         } else if (statusLower === 'cancelado') {
-            badgeClass = 'bg-danger';
+            cardStatus = 'bg-danger';
         }
 
         return `
@@ -110,10 +97,11 @@ function exibirTabelaAgendamentos(agendamentos: Agendamento[]): void {
                 <td>${item.modelo_veiculo}</td>
                 <td>${item.placa_veiculo}</td>
                 <td>${dataFormatada}</td>
-                <td><span class="badge ${badgeClass}">${item.status}</span></td>
+                <td><span class="badge ${cardStatus}">${item.status}</span></td>
             </tr>
         `;
     });
+
 
     tbody.innerHTML = linhas.join('');
 }
@@ -125,11 +113,12 @@ function formatarMoeda(valor: number): string {
     });
 }
 
-// Escuta o input do usuário e chama a API a cada caractere
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarDashboard();
 
     const inputBusca = document.getElementById('input-busca') as HTMLInputElement;
+
     inputBusca?.addEventListener('input', () => {
         carregarDashboard(inputBusca.value);
     });

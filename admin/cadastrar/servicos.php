@@ -116,11 +116,10 @@ $duracao_horas = $dados->duracao_horas ?? NULL;
         });
     })
 </script>
-<!--
 <script>
     $(document).ready(function () {
         $('#valor').mask('000.000.000,00', {
             reverse: true
         });
     })
-</script>-->
+</script>
